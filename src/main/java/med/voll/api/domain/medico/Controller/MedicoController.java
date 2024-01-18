@@ -1,16 +1,16 @@
-package med.voll.api.domain.medico.Controller;
+package med.voll.api.domain.medico.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import med.voll.api.domain.endereco.Endereco;
 import med.voll.api.domain.endereco.EnderecoDTO;
 import med.voll.api.domain.medico.dto.CriarMedicoDTO;
 import med.voll.api.domain.medico.entity.Medico;
 import med.voll.api.domain.medico.repository.MedicoRepository;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

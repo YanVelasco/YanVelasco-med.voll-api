@@ -2,9 +2,6 @@ package med.voll.api.domain.medico.entity;
 
 import java.util.UUID;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,14 +26,9 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @NotBlank
     private String nome;
-    @NotBlank
-    @Email
     private String email;
-    @NotBlank
     private String telefone;
-    @NotBlank
     private String crm;
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
