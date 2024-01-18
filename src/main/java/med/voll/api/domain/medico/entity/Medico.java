@@ -35,6 +35,8 @@ public class Medico {
     @Email
     private String email;
     @NotBlank
+    private String telefone;
+    @NotBlank
     private String crm;
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;

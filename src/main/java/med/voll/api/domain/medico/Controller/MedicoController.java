@@ -3,6 +3,7 @@ package med.voll.api.domain.medico.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.transaction.Transactional;
 import med.voll.api.domain.endereco.Endereco;
 import med.voll.api.domain.endereco.EnderecoDTO;
 import med.voll.api.domain.medico.dto.CriarMedicoDTO;
@@ -23,7 +24,8 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
 
     @PostMapping
-    public Medico postMethodName(@RequestBody @Valid CriarMedicoDTO criarMedicoDTO) {
+    @Transactional
+    public Medico criarMedico(@RequestBody @Valid CriarMedicoDTO criarMedicoDTO) {
 
         EnderecoDTO enderecoDTO = criarMedicoDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
@@ -44,8 +46,6 @@ public class MedicoController {
                 .endereco(endereco)
                 .build();
 
-
         return medicoRepository.save(createMedico);
-
     }
 }
