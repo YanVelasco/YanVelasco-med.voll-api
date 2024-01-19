@@ -7,7 +7,8 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.endereco.Endereco;
 import med.voll.api.domain.endereco.EnderecoDTO;
-import med.voll.api.domain.medico.dto.CriarMedicoDTO;
+import med.voll.api.domain.medico.dto.MedicoDTO;
+import med.voll.api.domain.medico.dto.AtualizarDadosMedicoDTO;
 import med.voll.api.domain.medico.dto.ListarMedicosDTO;
 import med.voll.api.domain.medico.entity.Medico;
 import med.voll.api.domain.medico.repository.MedicoRepository;
@@ -19,6 +20,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/medico")
@@ -29,7 +31,7 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public Medico criarMedico(@RequestBody @Valid CriarMedicoDTO criarMedicoDTO) {
+    public Medico criarMedico(@RequestBody @Valid MedicoDTO criarMedicoDTO) {
 
         EnderecoDTO enderecoDTO = criarMedicoDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
@@ -58,6 +60,14 @@ public class MedicoController {
     public Page<ListarMedicosDTO> listagemDeMedicos(
             @PageableDefault(size = 10, sort = { "nome" }) Pageable paginacaoPageable) {
         return medicoRepository.findAll(paginacaoPageable).map(ListarMedicosDTO::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public @Valid AtualizarDadosMedicoDTO putMethodName(@RequestBody @Valid AtualizarDadosMedicoDTO atualizarDadosMedicoDTO) {
+        var medico = medicoRepository.getReferenceById(atualizarDadosMedicoDTO.id());
+        medico.atualizarMedicos(atualizarDadosMedicoDTO);
+        return atualizarDadosMedicoDTO;
     }
 
 }

@@ -8,7 +8,7 @@ import io.micrometer.common.lang.NonNull;
 import med.voll.api.domain.endereco.EnderecoDTO;
 import med.voll.api.domain.medico.entity.Especialidade;
 
-public record CriarMedicoDTO(
+public record MedicoDTO(
                 @NotBlank String nome,
                 @NotBlank @Email String email,
                 @NotBlank String telefone,

@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.dto.AtualizarDadosMedicoDTO;
 
 @Table(name = "medicos")
 @Entity(name = "medico")
@@ -34,4 +35,16 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
+
+    public void atualizarMedicos(AtualizarDadosMedicoDTO atualizarDadosMedicoDTO){
+        if (atualizarDadosMedicoDTO.nome() != null) {
+            this.nome = atualizarDadosMedicoDTO.nome();
+        }
+        if (atualizarDadosMedicoDTO.telefone() != null) {
+            this.telefone = atualizarDadosMedicoDTO.telefone();
+        }
+        if (atualizarDadosMedicoDTO.enderecoDTO() != null) {
+            this.endereco.atulizarDadosEndereco(atualizarDadosMedicoDTO.enderecoDTO());
+        }
+    }
 }
