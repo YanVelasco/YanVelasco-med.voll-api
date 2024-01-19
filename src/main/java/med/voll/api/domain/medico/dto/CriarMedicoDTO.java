@@ -9,19 +9,10 @@ import med.voll.api.domain.endereco.EnderecoDTO;
 import med.voll.api.domain.medico.entity.Especialidade;
 
 public record CriarMedicoDTO(
-        @NotBlank
-        String nome,
-        @NotBlank
-        @Email
-        String email,
-        @NotBlank
-        @Pattern(regexp = "\\d{4,6}")
-        String crm,
-        @NonNull
-        Especialidade especialidade,
-        @NonNull
-        @Valid
-        EnderecoDTO enderecoDTO)
-{
+                @NotBlank String nome,
+                @NotBlank @Email String email,
+                @NotBlank String telefone,
+                @NotBlank @Pattern(regexp = "\\d{4,6}") String crm,
+                @NonNull Especialidade especialidade,
+                @NonNull @Valid EnderecoDTO enderecoDTO) {
 }
-

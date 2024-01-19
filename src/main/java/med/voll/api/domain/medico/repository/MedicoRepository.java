@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import med.voll.api.domain.medico.entity.Medico;
 
 @Repository
-public interface MedicoRepository extends JpaRepository<Medico, UUID>{
+public interface MedicoRepository extends JpaRepository<Medico, UUID> {
     Optional<Medico> findByNomeOrEmail(String nome, String email);
 }
