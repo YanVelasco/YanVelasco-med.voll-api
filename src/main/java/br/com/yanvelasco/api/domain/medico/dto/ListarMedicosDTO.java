@@ -1,9 +1,9 @@
-package med.voll.api.domain.medico.dto;
+package br.com.yanvelasco.api.domain.medico.dto;
 
 import java.util.UUID;
 
-import med.voll.api.domain.medico.entity.Especialidade;
-import med.voll.api.domain.medico.entity.Medico;
+import br.com.yanvelasco.api.domain.medico.entity.Especialidade;
+import br.com.yanvelasco.api.domain.medico.entity.Medico;
 
 public record ListarMedicosDTO(
         UUID id,

@@ -1,17 +1,17 @@
-package med.voll.api.domain.medico.controller;
+package br.com.yanvelasco.api.domain.medico.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.yanvelasco.api.domain.endereco.Endereco;
+import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
+import br.com.yanvelasco.api.domain.medico.dto.AtualizarDadosMedicoDTO;
+import br.com.yanvelasco.api.domain.medico.dto.ListarMedicosDTO;
+import br.com.yanvelasco.api.domain.medico.dto.MedicoDTO;
+import br.com.yanvelasco.api.domain.medico.entity.Medico;
+import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.domain.endereco.Endereco;
-import med.voll.api.domain.endereco.EnderecoDTO;
-import med.voll.api.domain.medico.dto.MedicoDTO;
-import med.voll.api.domain.medico.dto.AtualizarDadosMedicoDTO;
-import med.voll.api.domain.medico.dto.ListarMedicosDTO;
-import med.voll.api.domain.medico.entity.Medico;
-import med.voll.api.domain.medico.repository.MedicoRepository;
 
 import java.util.UUID;
 
@@ -74,9 +74,17 @@ public class MedicoController {
         return atualizarDadosMedicoDTO;
     }
 
+    // @DeleteMapping("/{id}")
+    // @Transactional
+    // public void deletarMedico(@PathVariable UUID id){
+    //     medicoRepository.deleteById(id);
+    // }
+
     @DeleteMapping("/{id}")
+    @Transactional
     public void deletarMedico(@PathVariable UUID id){
-        medicoRepository.deleteById(id);
+        var medico = medicoRepository.getReferenceById(id);
+        medico.excluir();
     }
 
 }

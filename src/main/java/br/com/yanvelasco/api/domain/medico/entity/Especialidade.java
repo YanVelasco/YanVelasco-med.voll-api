@@ -1,4 +1,4 @@
-package med.voll.api.domain.medico.entity;
+package br.com.yanvelasco.api.domain.medico.entity;
 
 public enum Especialidade {
     ORTOPEDIA,

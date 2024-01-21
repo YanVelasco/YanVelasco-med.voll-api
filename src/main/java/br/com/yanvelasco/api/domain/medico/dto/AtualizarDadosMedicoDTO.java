@@ -1,9 +1,9 @@
-package med.voll.api.domain.medico.dto;
+package br.com.yanvelasco.api.domain.medico.dto;
 
 import java.util.UUID;
 
+import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
 import jakarta.validation.constraints.NotNull;
-import med.voll.api.domain.endereco.EnderecoDTO;
 
 public record AtualizarDadosMedicoDTO(
         @NotNull UUID id,

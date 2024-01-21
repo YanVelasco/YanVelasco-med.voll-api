@@ -1,7 +1,9 @@
-package med.voll.api.domain.medico.entity;
+package br.com.yanvelasco.api.domain.medico.entity;
 
 import java.util.UUID;
 
+import br.com.yanvelasco.api.domain.endereco.Endereco;
+import br.com.yanvelasco.api.domain.medico.dto.AtualizarDadosMedicoDTO;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,8 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import med.voll.api.domain.endereco.Endereco;
-import med.voll.api.domain.medico.dto.AtualizarDadosMedicoDTO;
 
 @Table(name = "medicos")
 @Entity(name = "medico")
@@ -35,6 +35,8 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
+    @Builder.Default
+    private Boolean ativo = true;
 
     public void atualizarMedicos(AtualizarDadosMedicoDTO atualizarDadosMedicoDTO){
         if (atualizarDadosMedicoDTO.nome() != null) {
@@ -46,5 +48,9 @@ public class Medico {
         if (atualizarDadosMedicoDTO.enderecoDTO() != null) {
             this.endereco.atulizarDadosEndereco(atualizarDadosMedicoDTO.enderecoDTO());
         }
+    }
+
+    public void excluir(){
+        ativo = false;
     }
 }
