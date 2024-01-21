@@ -68,7 +68,7 @@ public class MedicoController {
 
     @PutMapping
     @Transactional
-    public @Valid AtualizarDadosMedicoDTO putMethodName(@RequestBody @Valid AtualizarDadosMedicoDTO atualizarDadosMedicoDTO) {
+    public @Valid AtualizarDadosMedicoDTO atualizar(@RequestBody @Valid AtualizarDadosMedicoDTO atualizarDadosMedicoDTO) {
         var medico = medicoRepository.getReferenceById(atualizarDadosMedicoDTO.id());
         medico.atualizarMedicos(atualizarDadosMedicoDTO);
         return atualizarDadosMedicoDTO;
