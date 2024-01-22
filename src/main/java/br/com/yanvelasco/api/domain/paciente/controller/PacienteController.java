@@ -3,12 +3,14 @@ package br.com.yanvelasco.api.domain.paciente.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.yanvelasco.api.domain.endereco.Endereco;
 import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
@@ -36,7 +38,7 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public Paciente criarPaciente(@RequestBody @Valid PacienteDTO criarPacienteDTO) {
+    public ResponseEntity<PacienteDTO> criarPaciente(@RequestBody @Valid PacienteDTO criarPacienteDTO, UriComponentsBuilder uriComponentsBuilder) {
         EnderecoDTO enderecoDTO = criarPacienteDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
                 .logradouro(enderecoDTO.logradouro())
@@ -56,28 +58,34 @@ public class PacienteController {
                 .endereco(endereco)
                 .build();
 
-        return pacienteRepository.save(criarPaciente);
+       pacienteRepository.save(criarPaciente);
+
+       var uri = uriComponentsBuilder.path("/paciente{id}").buildAndExpand(criarPaciente.getId()).toUri();
+
+       return ResponseEntity.created(uri).body(new PacienteDTO(criarPaciente));
     }
 
     @GetMapping
-    public Page<ListarPacientesDTO> listagemPacientes(
+    public ResponseEntity<Page<ListarPacientesDTO>> listagemPacientes(
         @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacaoPageable) {
-        return pacienteRepository.findAllByAtivoTrue(paginacaoPageable).map(ListarPacientesDTO::new);
+        var listarPaciente = pacienteRepository.findAllByAtivoTrue(paginacaoPageable).map(ListarPacientesDTO::new);
+        return ResponseEntity.ok(listarPaciente);
     }
     
     @PutMapping
     @Transactional
-    public @Valid AtualizarPacienteDTO atualizar(@RequestBody @Valid AtualizarPacienteDTO atualizarPacienteDTO) {
+    public ResponseEntity<PacienteDTO> atualizar(@RequestBody @Valid AtualizarPacienteDTO atualizarPacienteDTO) {
         var paciente = pacienteRepository.getReferenceById(atualizarPacienteDTO.id());
         paciente.atualizarPaciente(atualizarPacienteDTO);
-        return atualizarPacienteDTO;
+        return ResponseEntity.ok(new PacienteDTO(paciente));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deletarPaciente(@PathVariable UUID id){
+    public ResponseEntity<Object> deletarPaciente(@PathVariable UUID id){
         var paciente = pacienteRepository.getReferenceById(id);
         paciente.excluir();
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -3,16 +3,35 @@ package br.com.yanvelasco.api.domain.medico.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+
+import java.util.UUID;
+
 import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
 import br.com.yanvelasco.api.domain.medico.entity.Especialidade;
-import io.micrometer.common.lang.NonNull;
+import br.com.yanvelasco.api.domain.medico.entity.Medico;
 
 public record MedicoDTO(
-                @NotBlank String nome,
-                @NotBlank @Email String email,
-                @NotBlank String telefone,
-                @NotBlank @Pattern(regexp = "\\d{4,6}") String crm,
-                @NonNull Especialidade especialidade,
-                @NonNull @Valid EnderecoDTO enderecoDTO) {
+
+        UUID id,
+        @NotBlank String nome,
+        @NotBlank @Email String email,
+        @NotBlank String telefone,
+        @NotBlank @Pattern(regexp = "\\d{4,6}") String crm,
+        @NotNull Especialidade especialidade,
+        @NotNull @Valid EnderecoDTO enderecoDTO) {
+
+    public MedicoDTO(Medico medico) {
+        this(medico.getId(),medico.getNome(), medico.getEmail(), medico.getTelefone(), medico.getCrm(), medico.getEspecialidade(),
+                new EnderecoDTO(
+                        medico.getEndereco().getLogradouro(),
+                        medico.getEndereco().getBairro(),
+                        medico.getEndereco().getCep(),
+                        medico.getEndereco().getCidade(),
+                        medico.getEndereco().getUf(),
+                        medico.getEndereco().getComplemento(),
+                        medico.getEndereco().getNumero()));
+
+    }
 }
