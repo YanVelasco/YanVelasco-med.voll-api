@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/medico")
@@ -95,4 +97,11 @@ public class MedicoController {
         medico.excluir();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> detalharMedico(@PathVariable UUID id) {
+        var medico = medicoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new MedicoDTO(medico));
+    }
+    
 }

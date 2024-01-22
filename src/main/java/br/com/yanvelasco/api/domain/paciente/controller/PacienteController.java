@@ -88,4 +88,10 @@ public class PacienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> detalharPaciente(@PathVariable UUID id){
+        var paciente = pacienteRepository.getReferenceById(id);
+        return ResponseEntity.ok(new PacienteDTO(paciente));
+    }
+
 }

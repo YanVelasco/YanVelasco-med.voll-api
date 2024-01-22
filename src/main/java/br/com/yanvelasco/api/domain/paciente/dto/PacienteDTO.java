@@ -1,5 +1,7 @@
 package br.com.yanvelasco.api.domain.paciente.dto;
 
+import java.util.UUID;
+
 import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
 import br.com.yanvelasco.api.domain.paciente.entity.Paciente;
 import jakarta.validation.Valid;
@@ -9,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record PacienteDTO(
+                UUID id,
                 @NotBlank String nome,
                 @NotBlank @Email String email,
                 @NotBlank String telefone,
@@ -16,7 +19,11 @@ public record PacienteDTO(
                 @NotNull @Valid EnderecoDTO enderecoDTO) {
 
         public PacienteDTO(Paciente paciente) {
-                this(paciente.getNome(), paciente.getEmail(), paciente.getTelefone(), paciente.getCpf(),
+                this(paciente.getId() 
+                ,paciente.getNome(),
+                 paciente.getEmail(),
+                  paciente.getTelefone(),
+                   paciente.getCpf(),
                                 new EnderecoDTO(
                                                 paciente.getEndereco().getLogradouro(),
                                                 paciente.getEndereco().getBairro(),
