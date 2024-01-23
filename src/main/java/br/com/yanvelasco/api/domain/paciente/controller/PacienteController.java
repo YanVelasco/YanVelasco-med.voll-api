@@ -19,6 +19,7 @@ import br.com.yanvelasco.api.domain.paciente.dto.ListarPacientesDTO;
 import br.com.yanvelasco.api.domain.paciente.dto.PacienteDTO;
 import br.com.yanvelasco.api.domain.paciente.entity.Paciente;
 import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
+import br.com.yanvelasco.api.infra.exceptions.UserAlreadyExists;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -39,6 +40,7 @@ public class PacienteController {
     @PostMapping
     @Transactional
     public ResponseEntity<PacienteDTO> criarPaciente(@RequestBody @Valid PacienteDTO criarPacienteDTO, UriComponentsBuilder uriComponentsBuilder) {
+        
         EnderecoDTO enderecoDTO = criarPacienteDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
                 .logradouro(enderecoDTO.logradouro())
@@ -57,6 +59,10 @@ public class PacienteController {
                 .cpf(criarPacienteDTO.cpf())
                 .endereco(endereco)
                 .build();
+
+        pacienteRepository.findByNomeOrEmail(criarPaciente.getNome(), criarPaciente.getEmail()).ifPresent(paciente -> {
+            throw new UserAlreadyExists("Paciente já possúi um cadastro");
+        });
 
        pacienteRepository.save(criarPaciente);
 

@@ -11,6 +11,7 @@ import br.com.yanvelasco.api.domain.medico.dto.ListarMedicosDTO;
 import br.com.yanvelasco.api.domain.medico.dto.MedicoDTO;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
 import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
+import br.com.yanvelasco.api.infra.exceptions.UserAlreadyExists;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -38,6 +39,7 @@ public class MedicoController {
     @PostMapping
     @Transactional
     public ResponseEntity<MedicoDTO> cadastrarMedico(@RequestBody @Valid MedicoDTO medicoDTO, UriComponentsBuilder uriComponentsBuilder) {
+        
 
         EnderecoDTO enderecoDTO = medicoDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
@@ -58,6 +60,10 @@ public class MedicoController {
                 .especialidade(medicoDTO.especialidade())
                 .endereco(endereco)
                 .build();
+        
+        medicoRepository.findByNomeOrEmail(createMedico.getNome(), createMedico.getEmail()).ifPresent(medico -> {
+            throw new UserAlreadyExists("Médico já possúi um cadastro");
+        });
 
         medicoRepository.save(createMedico);
 
