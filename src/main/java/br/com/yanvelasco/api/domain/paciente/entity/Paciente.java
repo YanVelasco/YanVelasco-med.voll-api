@@ -2,7 +2,7 @@ package br.com.yanvelasco.api.domain.paciente.entity;
 
 import java.util.UUID;
 
-import br.com.yanvelasco.api.domain.endereco.Endereco;
+import br.com.yanvelasco.api.domain.endereco.entity.Endereco;
 import br.com.yanvelasco.api.domain.paciente.dto.AtualizarPacienteDTO;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.yanvelasco.api.domain.endereco.Endereco;
-import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
+import br.com.yanvelasco.api.domain.endereco.dto.EnderecoDTO;
+import br.com.yanvelasco.api.domain.endereco.entity.Endereco;
 import br.com.yanvelasco.api.domain.medico.dto.AtualizarDadosMedicoDTO;
 import br.com.yanvelasco.api.domain.medico.dto.ListarMedicosDTO;
 import br.com.yanvelasco.api.domain.medico.dto.MedicoDTO;

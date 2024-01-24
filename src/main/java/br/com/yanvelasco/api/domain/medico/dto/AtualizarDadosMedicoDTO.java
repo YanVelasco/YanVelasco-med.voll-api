@@ -2,7 +2,7 @@ package br.com.yanvelasco.api.domain.medico.dto;
 
 import java.util.UUID;
 
-import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
+import br.com.yanvelasco.api.domain.endereco.dto.EnderecoDTO;
 import jakarta.validation.constraints.NotNull;
 
 public record AtualizarDadosMedicoDTO(

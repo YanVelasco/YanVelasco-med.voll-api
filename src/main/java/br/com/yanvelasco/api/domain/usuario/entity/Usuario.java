@@ -1,4 +1,4 @@
-package br.com.yanvelasco.api.domain.usuario;
+package br.com.yanvelasco.api.domain.usuario.entity;
 
 import java.util.UUID;
 

@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 
 import java.util.UUID;
 
-import br.com.yanvelasco.api.domain.endereco.EnderecoDTO;
+import br.com.yanvelasco.api.domain.endereco.dto.EnderecoDTO;
 import br.com.yanvelasco.api.domain.medico.entity.Especialidade;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
 

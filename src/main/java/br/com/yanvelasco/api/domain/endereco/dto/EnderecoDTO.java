@@ -1,4 +1,4 @@
-package br.com.yanvelasco.api.domain.endereco;
+package br.com.yanvelasco.api.domain.endereco.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -1,5 +1,6 @@
-package br.com.yanvelasco.api.domain.endereco;
+package br.com.yanvelasco.api.domain.endereco.entity;
 
+import br.com.yanvelasco.api.domain.endereco.dto.EnderecoDTO;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
