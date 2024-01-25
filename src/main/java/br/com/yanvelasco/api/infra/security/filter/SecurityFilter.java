@@ -2,9 +2,11 @@ package br.com.yanvelasco.api.infra.security.filter;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.yanvelasco.api.infra.security.token.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     protected void doFilterInternal(
@@ -21,16 +26,18 @@ public class SecurityFilter extends OncePerRequestFilter {
             throws ServletException,
             IOException {
 
-                var tokenJWT = recuperarToken(request);
+        var tokenJWT = recuperarToken(request);
 
-                System.out.println(tokenJWT);
+        var subject = tokenService.getSubject(tokenJWT);
+        
+        
 
-                filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response);
 
     }
 
     private String recuperarToken(HttpServletRequest request) {
-       var authorizationHeader = request.getHeader("Authorization");
+        var authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader == null) {
             throw new RuntimeException("TokenJWT não enviado no cabeçalho Authorization");
         }
