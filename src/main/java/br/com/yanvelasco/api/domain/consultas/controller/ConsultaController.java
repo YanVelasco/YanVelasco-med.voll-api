@@ -8,14 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
-import br.com.yanvelasco.api.domain.consultas.entity.Consulta;
-import br.com.yanvelasco.api.domain.consultas.repository.ConsultaRepository;
-import br.com.yanvelasco.api.domain.medico.entity.Medico;
-import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
-import br.com.yanvelasco.api.domain.paciente.entity.Paciente;
-import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
-import br.com.yanvelasco.api.infra.exceptions.UserNotFound;
-import jakarta.persistence.EntityNotFoundException;
+
+import br.com.yanvelasco.api.domain.consultas.service.AgendaDeConsultas;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -24,35 +19,12 @@ import jakarta.validation.Valid;
 public class ConsultaController {
 
         @Autowired
-        private ConsultaRepository consultaRepository;
-
-        @Autowired
-        private MedicoRepository medicoRepository;
-
-        @Autowired
-        private PacienteRepository pacienteRepository;
+        private AgendaDeConsultas agendaDeConsultas;
 
         @PostMapping
         @Transactional
         public ResponseEntity<Object> agendar(@RequestBody @Valid ConsultaDTO consultaDTO) {
-                System.out.println(consultaDTO);
-
-                Medico medico = medicoRepository.findById(consultaDTO.idMedico())
-                                .orElseThrow(
-                                                () -> new EntityNotFoundException("Médico não encontrado"));
-
-                Paciente paciente = pacienteRepository.findById(consultaDTO.idPaciente())
-                                .orElseThrow(() -> new UserNotFound("Paciente não encontrado"));
-
-                Consulta consulta = Consulta.builder()
-                                .medico(medico)
-                                .paciente(paciente)
-                                .data(consultaDTO.data())
-                                .build();
-
-                
-                consultaRepository.save(consulta);
-
+                agendaDeConsultas.execute(consultaDTO);
                 return ResponseEntity.ok(consultaDTO);
         }
 
