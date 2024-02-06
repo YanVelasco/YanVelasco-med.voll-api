@@ -1,4 +1,4 @@
-package br.com.yanvelasco.api.domain.medico.Controller;
+package br.com.yanvelasco.api.domain.medico.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
