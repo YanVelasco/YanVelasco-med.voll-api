@@ -17,9 +17,11 @@ public class ValidadorPacienteAtivo {
             return;
         }
 
-        var paciente = pacienteRepository.findAtivoById(consultaDTO.idPaciente()).orElseThrow(
-            () -> new PacienteDesativadoException("Paciente desativado")
-        );
+        var paciente = pacienteRepository.findAtivoById(consultaDTO.idPaciente());
+
+        if (Boolean.FALSE.equals(paciente)) {
+            throw new PacienteDesativadoException("Paciente está desativado");
+        }
     }
 
 }

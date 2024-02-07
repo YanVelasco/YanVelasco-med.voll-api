@@ -18,7 +18,11 @@ public class ValidadorMedicoAtivo {
             return;
         }
 
-        var medicoAtivo = medicoRepository.findAtivoById(consultaDTO.idMedico()).orElseThrow(
-                () -> new MedicoDessativadoException("Médico desativado"));
+        var medicoAtivo = medicoRepository.findAtivoById(consultaDTO.idMedico());
+
+        if (Boolean.FALSE.equals(medicoAtivo)) {
+            throw new MedicoDessativadoException("O médico está desativado");
+        }
+
     }
 }
