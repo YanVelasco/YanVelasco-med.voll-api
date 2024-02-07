@@ -18,7 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Table(name = "medicos")
-@Entity(name = "medico")
+@Entity(name = "Medico")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,7 +38,7 @@ public class Medico {
     @Builder.Default
     private Boolean ativo = true;
 
-    public void atualizarMedicos(AtualizarDadosMedicoDTO atualizarDadosMedicoDTO){
+    public void atualizarMedicos(AtualizarDadosMedicoDTO atualizarDadosMedicoDTO) {
         if (atualizarDadosMedicoDTO.nome() != null) {
             this.nome = atualizarDadosMedicoDTO.nome();
         }
@@ -50,7 +50,7 @@ public class Medico {
         }
     }
 
-    public void excluir(){
+    public void excluir() {
         ativo = false;
     }
 }

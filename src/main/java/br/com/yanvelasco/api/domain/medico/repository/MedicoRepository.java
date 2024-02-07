@@ -20,10 +20,10 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
     Page<Medico> findAllByAtivoTrue(Pageable paginacaoPageable);
 
     @Query("SELECT m FROM Medico m " +
-    "WHERE m.ativo = true " +
-    "AND m.especialidade = :especialidade " +
-    "AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data) " +
-    "ORDER BY FUNCTION('RAND') " +
-    "LIMIT 1")
-Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
+            "WHERE m.ativo = true " +
+            "AND m.especialidade = :especialidade " +
+            "AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data) " +
+            "ORDER BY FUNCTION('RAND') " +
+            "LIMIT 1")
+    Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
 }
