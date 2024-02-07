@@ -26,4 +26,6 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
             "ORDER BY FUNCTION('RAND') " +
             "LIMIT 1")
     Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
+    
+    Optional<Medico> findAtivoById(UUID idMedico);
 }
