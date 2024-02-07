@@ -1,13 +1,15 @@
 package br.com.yanvelasco.api.domain.consultas.validations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
 import br.com.yanvelasco.api.infra.exceptions.MedicoDessativadoException;
 import lombok.var;
 
-public class ValidadorMedicoAtivo {
+@Component
+public class ValidadorMedicoAtivo implements ValidadorAgendamentoDeConsulta{
 
     @Autowired
     private MedicoRepository medicoRepository;

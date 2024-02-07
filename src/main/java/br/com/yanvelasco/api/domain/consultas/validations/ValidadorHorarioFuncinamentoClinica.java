@@ -2,11 +2,14 @@ package br.com.yanvelasco.api.domain.consultas.validations;
 
 import java.time.DayOfWeek;
 
+import org.springframework.stereotype.Component;
+
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.infra.exceptions.DomingoException;
 import br.com.yanvelasco.api.infra.exceptions.HoraQueNaoFuncionaException;
 
-public class ValidadorHorarioFuncinamentoClinica {
+@Component
+public class ValidadorHorarioFuncinamentoClinica implements ValidadorAgendamentoDeConsulta{
     
     public void execute(ConsultaDTO consultaDTO){
         var dataConsulta = consultaDTO.data();

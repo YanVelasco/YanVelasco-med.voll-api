@@ -1,10 +1,13 @@
 package br.com.yanvelasco.api.domain.consultas.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.domain.consultas.repository.ConsultaRepository;
+import br.com.yanvelasco.api.domain.consultas.validations.ValidadorAgendamentoDeConsulta;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
 import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
 import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
@@ -24,7 +27,12 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
+
     public void execute(ConsultaDTO consultaDTO) {
+
+        validadores.forEach(v -> v.execute(consultaDTO));
 
         var medico = escolherMedico(consultaDTO);
 

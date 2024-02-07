@@ -21,6 +21,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, UUID> {
             SELECT p.ativo FROM Paciente p WHERE p.id= :idPaciente
             """)
     Boolean findAtivoById( UUID idPaciente);
-
-    Boolean existsByPacienteAndDataBetween(@NotNull UUID idPaciente, boolean primeiroHorario, boolean ultimoHorario);
 }

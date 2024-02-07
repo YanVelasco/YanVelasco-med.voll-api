@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import br.com.yanvelasco.api.domain.medico.entity.Especialidade;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, UUID> {
@@ -34,5 +32,4 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
                         """)
         Boolean findAtivoById(UUID idMedico);
 
-        Boolean existsByIdAndData(UUID idMedico, @NotNull @Future LocalDateTime data);
 }

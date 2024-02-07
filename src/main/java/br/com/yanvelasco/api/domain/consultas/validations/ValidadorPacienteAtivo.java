@@ -1,12 +1,14 @@
 package br.com.yanvelasco.api.domain.consultas.validations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
 import br.com.yanvelasco.api.infra.exceptions.PacienteDesativadoException;
 
-public class ValidadorPacienteAtivo {
+@Component
+public class ValidadorPacienteAtivo implements ValidadorAgendamentoDeConsulta{
     
 
     @Autowired

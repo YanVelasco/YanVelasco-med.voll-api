@@ -3,10 +3,13 @@ package br.com.yanvelasco.api.domain.consultas.validations;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
+
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.infra.exceptions.TempoMinimoAgendaConsultaException;
 
-public class Validador30MinutosAntecedencia {
+@Component
+public class Validador30MinutosAntecedencia implements ValidadorAgendamentoDeConsulta{
     
     public void execute(ConsultaDTO consultaDTO){
         var dataConsulta = consultaDTO.data();
