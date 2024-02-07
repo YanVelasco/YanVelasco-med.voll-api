@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.yanvelasco.api.domain.paciente.entity.Paciente;
+import jakarta.validation.constraints.NotNull;
+
 
 public interface PacienteRepository extends JpaRepository<Paciente, UUID> {
     Page<Paciente> findAllByAtivoTrue(Pageable paginacaoPageable);
@@ -19,4 +21,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, UUID> {
             SELECT p.ativo FROM Paciente p WHERE p.id= :idPaciente
             """)
     Boolean findAtivoById( UUID idPaciente);
+
+    Boolean existsByPacienteAndDataBetween(@NotNull UUID idPaciente, boolean primeiroHorario, boolean ultimoHorario);
 }

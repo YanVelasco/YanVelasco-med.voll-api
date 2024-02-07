@@ -12,23 +12,27 @@ import org.springframework.stereotype.Repository;
 
 import br.com.yanvelasco.api.domain.medico.entity.Especialidade;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, UUID> {
-    Optional<Medico> findByNomeOrEmail(String nome, String email);
+        Optional<Medico> findByNomeOrEmail(String nome, String email);
 
-    Page<Medico> findAllByAtivoTrue(Pageable paginacaoPageable);
+        Page<Medico> findAllByAtivoTrue(Pageable paginacaoPageable);
 
-    @Query("SELECT m FROM Medico m " +
-            "WHERE m.ativo = true " +
-            "AND m.especialidade = :especialidade " +
-            "AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data) " +
-            "ORDER BY FUNCTION('RAND') " +
-            "LIMIT 1")
-    Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
+        @Query("SELECT m FROM Medico m " +
+                        "WHERE m.ativo = true " +
+                        "AND m.especialidade = :especialidade " +
+                        "AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data) " +
+                        "ORDER BY FUNCTION('RAND') " +
+                        "LIMIT 1")
+        Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
 
-    @Query("""
-            SELECT m.ativo FROM Medico m WHERE m.id= :idMedico
-            """)
-    Boolean findAtivoById(UUID idMedico);
+        @Query("""
+                        SELECT m.ativo FROM Medico m WHERE m.id= :idMedico
+                        """)
+        Boolean findAtivoById(UUID idMedico);
+
+        Boolean existsByIdAndData(UUID idMedico, @NotNull @Future LocalDateTime data);
 }
