@@ -39,8 +39,9 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PacienteDTO> criarPaciente(@RequestBody @Valid PacienteDTO criarPacienteDTO, UriComponentsBuilder uriComponentsBuilder) {
-        
+    public ResponseEntity<PacienteDTO> criarPaciente(@RequestBody @Valid PacienteDTO criarPacienteDTO,
+            UriComponentsBuilder uriComponentsBuilder) {
+
         EnderecoDTO enderecoDTO = criarPacienteDTO.enderecoDTO();
         Endereco endereco = Endereco.builder()
                 .logradouro(enderecoDTO.logradouro())
@@ -64,20 +65,20 @@ public class PacienteController {
             throw new UserAlreadyExists("Paciente já possúi um cadastro");
         });
 
-       pacienteRepository.save(criarPaciente);
+        pacienteRepository.save(criarPaciente);
 
-       var uri = uriComponentsBuilder.path("/paciente{id}").buildAndExpand(criarPaciente.getId()).toUri();
+        var uri = uriComponentsBuilder.path("/paciente{id}").buildAndExpand(criarPaciente.getId()).toUri();
 
-       return ResponseEntity.created(uri).body(new PacienteDTO(criarPaciente));
+        return ResponseEntity.created(uri).body(new PacienteDTO(criarPaciente));
     }
 
     @GetMapping
     public ResponseEntity<Page<ListarPacientesDTO>> listagemPacientes(
-        @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacaoPageable) {
+            @PageableDefault(size = 10, sort = { "nome" }) Pageable paginacaoPageable) {
         var listarPaciente = pacienteRepository.findAllByAtivoTrue(paginacaoPageable).map(ListarPacientesDTO::new);
         return ResponseEntity.ok(listarPaciente);
     }
-    
+
     @PutMapping
     @Transactional
     public ResponseEntity<PacienteDTO> atualizar(@RequestBody @Valid AtualizarPacienteDTO atualizarPacienteDTO) {
@@ -88,14 +89,14 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> deletarPaciente(@PathVariable UUID id){
+    public ResponseEntity<Object> deletarPaciente(@PathVariable UUID id) {
         var paciente = pacienteRepository.getReferenceById(id);
         paciente.excluir();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> detalharPaciente(@PathVariable UUID id){
+    public ResponseEntity<Object> detalharPaciente(@PathVariable UUID id) {
         var paciente = pacienteRepository.getReferenceById(id);
         return ResponseEntity.ok(new PacienteDTO(paciente));
     }

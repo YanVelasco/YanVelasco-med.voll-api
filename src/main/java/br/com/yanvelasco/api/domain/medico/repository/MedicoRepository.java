@@ -23,7 +23,7 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
                         "WHERE m.ativo = true " +
                         "AND m.especialidade = :especialidade " +
                         "AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data) " +
-                        "ORDER BY FUNCTION('RAND') " +
+                        "ORDER BY FUNCTION('RANDOM') " +
                         "LIMIT 1")
         Medico escolherMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
 

@@ -24,8 +24,12 @@ public class ConsultaController {
         @PostMapping
         @Transactional
         public ResponseEntity<Object> agendar(@RequestBody @Valid ConsultaDTO consultaDTO) {
-                agendaDeConsultas.execute(consultaDTO);
-                return ResponseEntity.ok(consultaDTO);
+                try {
+                        agendaDeConsultas.execute(consultaDTO);
+                        return ResponseEntity.ok(consultaDTO);
+                } catch (Exception e) {
+                        return ResponseEntity.badRequest().body(e.getMessage());
+                }
         }
 
 }
