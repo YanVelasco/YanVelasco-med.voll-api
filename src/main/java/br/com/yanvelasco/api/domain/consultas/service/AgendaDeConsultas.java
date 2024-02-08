@@ -50,13 +50,15 @@ public class AgendaDeConsultas {
     }
 
     private Medico escolherMedico(ConsultaDTO consultaDTO) {
+
         if (consultaDTO.idMedico() != null) {
-            return medicoRepository.findById(consultaDTO.idMedico())
-                    .orElseThrow(() -> new UserNotFound("Médico não encontrado"));
-        } else if (consultaDTO.especialidade() != null) {
-            return medicoRepository.escolherMedicoPorEspecialidade(consultaDTO.especialidade(), consultaDTO.data());
-        } else {
+            return medicoRepository.getReferenceById(consultaDTO.idMedico());
+        }
+        
+        if (consultaDTO.especialidade() == null) {
             throw new EspecialidadeException("Você deve informar o médico ou a especialidade");
         }
+        
+        return medicoRepository.escolherMedicoPorEspecialidade(consultaDTO.especialidade(), consultaDTO.data());
     }
 }
