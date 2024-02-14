@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
-
+import br.com.yanvelasco.api.domain.consultas.entity.ConsultaEntity;
 import br.com.yanvelasco.api.domain.consultas.service.AgendaDeConsultas;
 
 import jakarta.transaction.Transactional;
@@ -25,11 +25,11 @@ public class ConsultaController {
         @Transactional
         public ResponseEntity<Object> agendar(@RequestBody @Valid ConsultaDTO consultaDTO) {
                 try {
-                        agendaDeConsultas.execute(consultaDTO);
-                        return ResponseEntity.ok(consultaDTO);
+                        ConsultaEntity consultaAgendada = agendaDeConsultas.execute(consultaDTO); // Aqui você obtém a
+                                                                                            // consulta agendada
+                        return ResponseEntity.ok(consultaAgendada); // Aqui você retorna a consulta agendada
                 } catch (Exception e) {
                         return ResponseEntity.badRequest().body(e.getMessage());
                 }
         }
-
 }

@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.yanvelasco.api.domain.consultas.entity.Consulta;
+import br.com.yanvelasco.api.domain.consultas.entity.ConsultaEntity;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
-public interface ConsultaRepository extends JpaRepository<Consulta, UUID> {
+public interface ConsultaRepository extends JpaRepository<ConsultaEntity, UUID> {
 
     Boolean existsByMedicoIdAndData(UUID idMedico, @NotNull @Future LocalDateTime data);
 

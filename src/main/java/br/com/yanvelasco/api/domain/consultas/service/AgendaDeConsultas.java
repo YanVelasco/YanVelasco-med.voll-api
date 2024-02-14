@@ -13,7 +13,7 @@ import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
 import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
 import br.com.yanvelasco.api.infra.exceptions.EspecialidadeException;
 import br.com.yanvelasco.api.infra.exceptions.UserNotFound;
-import br.com.yanvelasco.api.domain.consultas.entity.Consulta;
+import br.com.yanvelasco.api.domain.consultas.entity.ConsultaEntity;
 
 @Service
 public class AgendaDeConsultas {
@@ -30,24 +30,23 @@ public class AgendaDeConsultas {
     @Autowired
     private List<ValidadorAgendamentoDeConsulta> validadores;
 
-    public void execute(ConsultaDTO consultaDTO) {
-
+    public ConsultaEntity execute(ConsultaDTO consultaDTO) {
         validadores.forEach(v -> v.execute(consultaDTO));
-
+    
         var medico = escolherMedico(consultaDTO);
-
+    
         var paciente = pacienteRepository.findById(consultaDTO.idPaciente())
                 .orElseThrow(() -> new UserNotFound("Paciente não encontrado"));
-
-        var consulta = Consulta.builder()
+    
+        ConsultaEntity consulta = ConsultaEntity.builder()
                 .medico(medico)
                 .paciente(paciente)
                 .data(consultaDTO.data())
                 .build();
-
-        consultaRepository.save(consulta);
-
+    
+        return consultaRepository.save(consulta);
     }
+    
 
     private Medico escolherMedico(ConsultaDTO consultaDTO) {
 
