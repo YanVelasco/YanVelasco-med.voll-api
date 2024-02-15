@@ -20,6 +20,7 @@ import br.com.yanvelasco.api.domain.paciente.dto.PacienteDTO;
 import br.com.yanvelasco.api.domain.paciente.entity.Paciente;
 import br.com.yanvelasco.api.domain.paciente.repository.PacienteRepository;
 import br.com.yanvelasco.api.infra.exceptions.UserAlreadyExists;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/paciente")
+@SecurityRequirement(name = "jwt_auth")
 public class PacienteController {
 
     @Autowired

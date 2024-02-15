@@ -12,6 +12,7 @@ import br.com.yanvelasco.api.domain.medico.dto.MedicoDTO;
 import br.com.yanvelasco.api.domain.medico.entity.Medico;
 import br.com.yanvelasco.api.domain.medico.repository.MedicoRepository;
 import br.com.yanvelasco.api.infra.exceptions.UserAlreadyExists;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/medico")
+@SecurityRequirement(name = "jwt_auth")
 public class MedicoController {
 
     @Autowired

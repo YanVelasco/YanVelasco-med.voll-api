@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.yanvelasco.api.domain.consultas.dto.ConsultaDTO;
 import br.com.yanvelasco.api.domain.consultas.entity.ConsultaEntity;
 import br.com.yanvelasco.api.domain.consultas.service.AgendaDeConsultas;
-
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/consultas")
+@SecurityRequirement(name = "jwt_auth")
 public class ConsultaController {
 
         @Autowired
